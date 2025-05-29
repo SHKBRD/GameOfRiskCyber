@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdnvlt5t8bylf"]
+
+[ext_resource type="Script" uid="uid://boulk23gysgq5" path="res://scripts/numpad_button.gd" id="1_w87sr"]
+
+[sub_resource type="Gradient" id="Gradient_nrqcd"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.636364)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bg2j3"]
+gradient = SubResource("Gradient_nrqcd")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Theme" id="Theme_cby7l"]
+Label/font_sizes/font_size = 170
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w87sr"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = SubResource("GradientTexture2D_bg2j3")
+script = ExtResource("1_w87sr")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+theme = SubResource("Theme_cby7l")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_w87sr")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
