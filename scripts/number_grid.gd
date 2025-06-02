@@ -14,11 +14,19 @@ var dragging: bool = false
 func _ready() -> void:
 	init_numbers()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("NumpadButtonPressed"):
+func _process(delta: float) -> void:
+	handle_input()
+
+func handle_input():
+	if Input.is_action_pressed("NumpadButtonPressed"):
 		dragging = true
 	else:
 		dragging = false
+	if Input.is_action_just_pressed("NumpadButtonPressed"):
+		print(currentNumber)
+		_on_number_just_hovered(get_child(currentNumber-1))
+	if Input.is_action_just_released("NumpadButtonPressed"):
+		reset_progress()
 
 func init_numbers() -> void:
 	for heightInd: int in height:
@@ -40,12 +48,12 @@ func reset_progress() -> void:
 func _on_number_just_hovered(numberObj: NumpadNumber) -> void:
 	
 	currentNumber = numberObj.number
-	
-	if currentNumber == connectOrder + 1:
-		currentNumber = currentNumber
-		numberObj.confirm_number()
-	else:
-		reset_progress()
+	if dragging:
+		if currentNumber == connectOrder + 1:
+			connectOrder = currentNumber
+			numberObj.confirm_number()
+		else:
+			reset_progress()
 	print()
 	print("ORDER: " + str(connectOrder))
 	print("CURRENT: " + str(currentNumber))
