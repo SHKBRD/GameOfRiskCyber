@@ -6,10 +6,10 @@ var readInput: bool = false
 
 func init_numpad_button(num: int) -> void:
 	number = num
+	%Label.text = str(number)
 
 func _on_area_2d_mouse_entered() -> void:
 	readInput = true
-
 
 func _on_area_2d_mouse_exited() -> void:
 	readInput = false
