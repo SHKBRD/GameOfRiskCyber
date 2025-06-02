@@ -17,6 +17,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	handle_input()
 
+func get_number(num: int) -> NumpadNumber:
+	var existingButtons: Array = get_children()
+	for btn: NumpadNumber in existingButtons:
+		if btn.number == num:
+			return btn
+	return null
+
 func handle_input():
 	if Input.is_action_pressed("NumpadButtonPressed"):
 		dragging = true
@@ -24,16 +31,23 @@ func handle_input():
 		dragging = false
 	if Input.is_action_just_pressed("NumpadButtonPressed"):
 		print(currentNumber)
-		_on_number_just_hovered(get_child(currentNumber-1))
+		_on_number_just_hovered(get_number(currentNumber))
 	if Input.is_action_just_released("NumpadButtonPressed"):
 		reset_progress()
 
 func init_numbers() -> void:
+	var numberButtons: Array = []
+	for number: int in height*width:
+		numberButtons.append(number+1)
 	for heightInd: int in height:
 		for widthInd: int in width:
+			var chosenNumber: int = numberButtons.pick_random()
+			numberButtons.erase(chosenNumber)
+			
 			var newNumber: NumpadNumber = numpadNumber.instantiate()
 			newNumber.position = Vector2(widthInd*buttonDistance, heightInd*buttonDistance)
-			newNumber.init_numpad_button(heightInd*height + widthInd + 1)
+			
+			newNumber.init_numpad_button(chosenNumber)
 			newNumber.mouse_hovered.connect(_on_number_just_hovered)
 			newNumber.mouse_left.connect(_on_number_just_leaved)
 			add_child(newNumber)

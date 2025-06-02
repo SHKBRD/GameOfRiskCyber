@@ -6,30 +6,33 @@ signal mouse_left(NumpadNumber)
 
 var number: int = 0
 var readInput: bool = false
-var confirmed: bool = true
+var confirmed: bool = false
 
 func init_numpad_button(num: int) -> void:
 	number = num
 	%Label.text = str(number)
 
-func _update(delta: float) -> void:
+func _process(delta: float) -> void:
+	if Input.is_action_just_released("Check"):
+		pass
 	if confirmed:
-		modulate = Color.GREEN
-	else:
-		modulate = Color.WHITE
+		self_modulate = Color.BLUE
+	
 
 func confirm_number() -> void:
 	confirmed = true
 
 func reset() -> void:
 	confirmed = false
+	
+	self_modulate = Color.WHITE
 
 func _on_area_2d_mouse_entered() -> void:
 	readInput = true
 	mouse_hovered.emit(self)
-	modulate = Color(0.5, 0.5, 0.5, 0.5)
+	self_modulate = Color(0.5, 0.5, 0.5, 0.5)
 
 func _on_area_2d_mouse_exited() -> void:
 	readInput = false
 	mouse_left.emit(self)
-	modulate = Color(1.0, 1.0, 1.0, 1.0)
+	self_modulate = Color(1.0, 1.0, 1.0, 1.0)
