@@ -38,9 +38,7 @@ func reset_progress() -> void:
 	currentNumber = -1
 
 func _on_number_just_hovered(numberObj: NumpadNumber) -> void:
-	print()
-	print("ORDER: " + str(connectOrder))
-	print("CURRENT: " + str(currentNumber))
+	
 	currentNumber = numberObj.number
 	
 	if currentNumber == connectOrder + 1:
@@ -48,6 +46,9 @@ func _on_number_just_hovered(numberObj: NumpadNumber) -> void:
 		numberObj.confirm_number()
 	else:
 		reset_progress()
+	print()
+	print("ORDER: " + str(connectOrder))
+	print("CURRENT: " + str(currentNumber))
 
 func _on_number_just_leaved(numberObj: NumpadNumber) -> void:
 	currentNumber = -1
