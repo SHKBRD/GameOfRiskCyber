@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://5pyec6hb233n"]
+[gd_scene load_steps=4 format=3 uid="uid://5pyec6hb233n"]
 
 [ext_resource type="Script" uid="uid://cdolpayh8c3cc" path="res://scripts/work_scene.gd" id="1_fbnfj"]
 [ext_resource type="Script" uid="uid://c5lnoqof6ijnt" path="res://scripts/number_grid.gd" id="2_x77gp"]
+[ext_resource type="Theme" uid="uid://c382r10cow616" path="res://assets/themes/work.tres" id="3_jqjy7"]
 
 [node name="WorkScene" type="Node2D"]
 script = ExtResource("1_fbnfj")
 
 [node name="Numpad" type="Node2D" parent="."]
+position = Vector2(0, 96)
 
 [node name="ConnectLine" type="Line2D" parent="Numpad"]
 unique_name_in_owner = true
@@ -16,3 +18,45 @@ position = Vector2(100, 100)
 unique_name_in_owner = true
 position = Vector2(100, 100)
 script = ExtResource("2_x77gp")
+
+[node name="QuotaProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = 68.0
+offset_top = 55.0
+offset_right = 430.0
+offset_bottom = 82.0
+theme = ExtResource("3_jqjy7")
+max_value = 5.0
+value = 5.0
+
+[node name="ProgressTextContain" type="GridContainer" parent="QuotaProgressBar"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = -21.0
+offset_right = 276.0
+offset_bottom = 19.0
+columns = 4
+
+[node name="QuotaProgress" type="Label" parent="QuotaProgressBar/ProgressTextContain"]
+layout_mode = 2
+text = "Quota Progress: "
+
+[node name="Numerator" type="Label" parent="QuotaProgressBar/ProgressTextContain"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+horizontal_alignment = 2
+
+[node name="Percent" type="Label" parent="QuotaProgressBar/ProgressTextContain"]
+layout_mode = 2
+text = "/"
+horizontal_alignment = 1
+
+[node name="Denominator" type="Label" parent="QuotaProgressBar/ProgressTextContain"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[connection signal="lost_round" from="Numpad/NumberGrid" to="." method="_on_number_grid_lost_round"]
+[connection signal="won_round" from="Numpad/NumberGrid" to="." method="_on_number_grid_won_round"]

@@ -76,8 +76,12 @@ func handle_input():
 			connectOrder = -1
 	if Input.is_action_just_released("NumpadButtonPressed"):
 		dragging = false
+		connectLine.clear_points()
 		if not readyToResetWin:
 			init_lose_round()
+		else:
+			update_buttons_to_default()
+			
 
 func init_numbers() -> void:
 	var numberButtons: Array = []
