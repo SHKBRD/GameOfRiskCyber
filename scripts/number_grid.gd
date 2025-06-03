@@ -7,6 +7,7 @@ static var numpadNumber: PackedScene = preload("res://scenes/numpad_number.tscn"
 @export var height: int = 4
 @export var buttonDistance: float = 100.0
 
+var connectLine: Line2D
 var connectOrder: int = 0
 var currentNumber: int = -1
 var dragging: bool = false
@@ -16,6 +17,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	handle_input()
+	update_connect_line()
 
 func get_number(num: int) -> NumpadNumber:
 	var existingButtons: Array = get_children()
@@ -24,16 +26,30 @@ func get_number(num: int) -> NumpadNumber:
 			return btn
 	return null
 
+func update_connect_line() -> void:
+	if connectOrder != 0 and connectLine.points.size() != 0:
+		for pointInd: int in connectLine.points.size()-1:
+			connectLine.remove_point(pointInd)
+			connectLine.add_point(get_number(pointInd+1).position, pointInd)
+		connectLine.remove_point(connectLine.points.size()-1)
+		connectLine.add_point(get_local_mouse_position())
+
+
+func add_connect_points(num: int) -> void:
+	connectLine.add_point(get_number(num).position, num-1)
+	
 func handle_input():
-	if Input.is_action_pressed("NumpadButtonPressed"):
-		dragging = true
-	else:
-		dragging = false
 	if Input.is_action_just_pressed("NumpadButtonPressed"):
+		dragging = true
 		print(currentNumber)
 		if currentNumber != -1:
 			_on_number_just_hovered(get_number(currentNumber))
+			connectLine.add_point(get_number(1).position)
+			connectLine.add_point(get_number(1).position)
+		else:
+			connectOrder = -1
 	if Input.is_action_just_released("NumpadButtonPressed"):
+		dragging = false
 		reset_progress()
 
 func init_numbers() -> void:
@@ -59,6 +75,7 @@ func reset_progress() -> void:
 		numberButton.reset()
 	connectOrder = 0
 	currentNumber = -1
+	connectLine.clear_points()
 
 func _on_number_just_hovered(numberObj: NumpadNumber) -> void:
 	
@@ -67,6 +84,11 @@ func _on_number_just_hovered(numberObj: NumpadNumber) -> void:
 		if currentNumber == connectOrder + 1:
 			connectOrder = currentNumber
 			numberObj.confirm_number()
+			if currentNumber != 1:
+				add_connect_points(currentNumber)
+		
+		elif numberObj.number <= connectOrder:
+			pass
 		else:
 			reset_progress()
 	print()
