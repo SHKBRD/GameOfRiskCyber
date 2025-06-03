@@ -31,7 +31,8 @@ func handle_input():
 		dragging = false
 	if Input.is_action_just_pressed("NumpadButtonPressed"):
 		print(currentNumber)
-		_on_number_just_hovered(get_number(currentNumber))
+		if currentNumber != -1:
+			_on_number_just_hovered(get_number(currentNumber))
 	if Input.is_action_just_released("NumpadButtonPressed"):
 		reset_progress()
 
