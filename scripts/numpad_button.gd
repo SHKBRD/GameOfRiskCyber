@@ -15,24 +15,23 @@ func init_numpad_button(num: int) -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_released("Check"):
 		pass
-	if confirmed:
-		self_modulate = Color.BLUE
 	
 
 func confirm_number() -> void:
 	confirmed = true
+	self_modulate = Color.BLUE
 
 func reset() -> void:
 	confirmed = false
-	
-	self_modulate = Color.WHITE
 
 func _on_area_2d_mouse_entered() -> void:
 	readInput = true
 	mouse_hovered.emit(self)
-	self_modulate = Color(0.5, 0.5, 0.5, 0.5)
+	if not get_parent().dragging:
+		self_modulate = Color(0.5, 0.5, 0.5, 0.5)
 
 func _on_area_2d_mouse_exited() -> void:
 	readInput = false
 	mouse_left.emit(self)
-	self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+	if not get_parent().dragging:
+		self_modulate = Color(1.0, 1.0, 1.0, 1.0)

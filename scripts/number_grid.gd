@@ -1,6 +1,9 @@
 extends Node2D
 class_name NumberGrid
 
+signal won_round()
+signal lost_round()
+
 static var numpadNumber: PackedScene = preload("res://scenes/numpad_number.tscn")
 
 @export var width: int = 4
@@ -11,6 +14,8 @@ var connectLine: Line2D
 var connectOrder: int = 0
 var currentNumber: int = -1
 var dragging: bool = false
+
+var readyToResetWin: bool = false
 
 func _ready() -> void:
 	init_numbers()
@@ -25,6 +30,27 @@ func get_number(num: int) -> NumpadNumber:
 		if btn.number == num:
 			return btn
 	return null
+
+func update_buttons_to_default() -> void:
+	var buttonChildren: Array = get_children()
+	for button: NumpadNumber in buttonChildren:
+		button.self_modulate = Color.WHITE
+
+func init_win_round() -> void:
+	won_round.emit()
+	readyToResetWin = true
+	
+	var buttonChildren: Array = get_children()
+	for button: NumpadNumber in buttonChildren:
+		button.self_modulate = Color.GREEN
+
+func init_lose_round() -> void:
+	lost_round.emit()
+	var buttonChildren: Array = get_children()
+	for button: NumpadNumber in buttonChildren:
+		button.self_modulate = Color.RED
+	
+	reset_progress()
 
 func update_connect_line() -> void:
 	if connectOrder != 0 and connectLine.points.size() != 0:
@@ -41,7 +67,7 @@ func add_connect_points(num: int) -> void:
 func handle_input():
 	if Input.is_action_just_pressed("NumpadButtonPressed"):
 		dragging = true
-		print(currentNumber)
+		update_buttons_to_default()
 		if currentNumber != -1:
 			_on_number_just_hovered(get_number(currentNumber))
 			connectLine.add_point(get_number(1).position)
@@ -50,7 +76,8 @@ func handle_input():
 			connectOrder = -1
 	if Input.is_action_just_released("NumpadButtonPressed"):
 		dragging = false
-		reset_progress()
+		if not readyToResetWin:
+			init_lose_round()
 
 func init_numbers() -> void:
 	var numberButtons: Array = []
@@ -86,14 +113,17 @@ func _on_number_just_hovered(numberObj: NumpadNumber) -> void:
 			numberObj.confirm_number()
 			if currentNumber != 1:
 				add_connect_points(currentNumber)
-		
+				
+			if connectOrder == width*height:
+				init_win_round()
 		elif numberObj.number <= connectOrder:
 			pass
 		else:
-			reset_progress()
-	print()
-	print("ORDER: " + str(connectOrder))
-	print("CURRENT: " + str(currentNumber))
+			init_lose_round()
+			
+	#print()
+	#print("ORDER: " + str(connectOrder))
+	#print("CURRENT: " + str(currentNumber))
 
 func _on_number_just_leaved(numberObj: NumpadNumber) -> void:
 	currentNumber = -1
