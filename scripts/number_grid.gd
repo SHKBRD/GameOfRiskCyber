@@ -86,12 +86,14 @@ func handle_input():
 			connectOrder = -1
 	if Input.is_action_just_released("NumpadButtonPressed"):
 		dragging = false
+		reset_progress()
 		connectLine.clear_points()
-		if not readyToResetWin:
+		if not readyToResetWin and currentNumber != -1:
 			init_lose_round()
 		else:
 			update_buttons_to_default()
 			readyToResetWin = false
+			readyToResetLose = false
 			
 
 func init_numbers() -> void:
@@ -120,8 +122,10 @@ func reset_progress() -> void:
 	connectLine.clear_points()
 
 func _on_number_just_hovered(numberObj: NumpadNumber) -> void:
-	
+	if numberObj.number != 1:
+		pass
 	currentNumber = numberObj.number
+	
 	if dragging:
 		if currentNumber == connectOrder + 1:
 			connectOrder = currentNumber

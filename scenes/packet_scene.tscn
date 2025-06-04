@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bgqi8vhiltjvd"]
 
-[ext_resource type="Script" uid="uid://cjl1gyi3glipb" path="res://scripts/packet_scene.gd" id="1_ab6hx"]
+[ext_resource type="Script" path="res://scripts/packet_scene.gd" id="1_ab6hx"]
 [ext_resource type="Theme" uid="uid://c382r10cow616" path="res://assets/themes/work.tres" id="1_pj18c"]
 
 [node name="PacketScene" type="Control"]
@@ -15,15 +15,6 @@ offset_bottom = 724.0
 mouse_filter = 2
 color = Color(0.0911214, 0.0911215, 0.0911214, 1)
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 69.0
-offset_top = 36.0
-offset_right = 512.0
-offset_bottom = 68.0
-theme = ExtResource("1_pj18c")
-text = "All incoming IPs must add up to 160!"
-
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.5
 autostart = true
@@ -33,5 +24,14 @@ anchors_preset = 0
 offset_right = 583.0
 offset_bottom = 729.0
 mouse_filter = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 36.0
+offset_right = 512.0
+offset_bottom = 68.0
+theme = ExtResource("1_pj18c")
+text = "All incoming IPs must add up to 160!"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

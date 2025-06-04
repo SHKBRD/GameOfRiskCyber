@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://d00ety2uy6jm1"]
 
 [ext_resource type="PackedScene" uid="uid://5pyec6hb233n" path="res://scenes/work_scene.tscn" id="1_onqr8"]
-[ext_resource type="Script" uid="uid://fgvuhjygjsnk" path="res://scripts/game_scene.gd" id="1_ycayy"]
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_ycayy"]
 [ext_resource type="PackedScene" uid="uid://bgqi8vhiltjvd" path="res://scenes/packet_scene.tscn" id="2_ycayy"]
-[ext_resource type="PackedScene" uid="uid://c1sa4kr1sy2b8" path="res://scenes/mistake.tscn" id="3_bw6k5"]
+[ext_resource type="PackedScene" path="res://scenes/mistake.tscn" id="3_bw6k5"]
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("1_ycayy")
