@@ -33,6 +33,36 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Incoming:"
 horizontal_alignment = 1
 
+[node name="IP2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 116.0
+offset_right = 143.0
+offset_bottom = 165.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "HP:"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="."]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 77.0
+offset_right = 143.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "HP:"
+horizontal_alignment = 1
+
+[node name="HPCount" type="Label" parent="."]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 94.0
+offset_right = 143.0
+offset_bottom = 143.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "HP:"
+horizontal_alignment = 1
+
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(98, 85.5)
 scale = Vector2(10, 8.65)

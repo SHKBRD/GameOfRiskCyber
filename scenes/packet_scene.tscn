@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bgqi8vhiltjvd"]
 
-[ext_resource type="Script" path="res://scripts/packet_scene.gd" id="1_ab6hx"]
+[ext_resource type="Script" uid="uid://cjl1gyi3glipb" path="res://scripts/packet_scene.gd" id="1_ab6hx"]
 [ext_resource type="Theme" uid="uid://c382r10cow616" path="res://assets/themes/work.tres" id="1_pj18c"]
 
 [node name="PacketScene" type="Control"]
@@ -13,10 +13,10 @@ layout_mode = 0
 offset_right = 583.0
 offset_bottom = 724.0
 mouse_filter = 2
-color = Color(0.0911214, 0.0911215, 0.0911214, 1)
+color = Color(0.230315, 0.230315, 0.230315, 1)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.5
+wait_time = 7.5
 autostart = true
 
 [node name="MobArea" type="Control" parent="."]
@@ -32,6 +32,20 @@ offset_top = 36.0
 offset_right = 512.0
 offset_bottom = 68.0
 theme = ExtResource("1_pj18c")
-text = "All incoming IPs must add up to 160!"
+text = "All incoming packet IPs 
+must add up to 160!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 113.0
+offset_right = 512.0
+offset_bottom = 180.0
+theme = ExtResource("1_pj18c")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Destroy all the invalid packets
+before you get three strikes!"
+horizontal_alignment = 1
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

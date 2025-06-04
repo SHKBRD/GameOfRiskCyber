@@ -19,6 +19,8 @@ var readyToResetWin: bool = false
 var readyToResetLose: bool = false
 
 func _ready() -> void:
+	#init_numbers()
+	pass
 	init_numbers()
 
 func _process(delta: float) -> void:
@@ -47,6 +49,7 @@ func init_win_round() -> void:
 			button.self_modulate = Color.GREEN
 		
 		reset_progress()
+		init_numbers()
 
 func init_lose_round() -> void:
 	if not readyToResetLose:
@@ -86,8 +89,8 @@ func handle_input():
 			connectOrder = -1
 	if Input.is_action_just_released("NumpadButtonPressed"):
 		dragging = false
-		reset_progress()
 		connectLine.clear_points()
+		
 		if not readyToResetWin and currentNumber != -1:
 			init_lose_round()
 		else:
@@ -95,9 +98,14 @@ func handle_input():
 			readyToResetWin = false
 			readyToResetLose = false
 			
+			
 
 func init_numbers() -> void:
 	var numberButtons: Array = []
+	var numberChildren: Array = get_children()
+	for child: Node in numberChildren:
+		remove_child(child)
+		child.queue_free()
 	for number: int in height*width:
 		numberButtons.append(number+1)
 	for heightInd: int in height:
@@ -120,13 +128,14 @@ func reset_progress() -> void:
 	connectOrder = 0
 	currentNumber = -1
 	connectLine.clear_points()
+	
 
 func _on_number_just_hovered(numberObj: NumpadNumber) -> void:
 	if numberObj.number != 1:
 		pass
 	currentNumber = numberObj.number
 	
-	if dragging:
+	if dragging and not (readyToResetLose or readyToResetWin):
 		if currentNumber == connectOrder + 1:
 			connectOrder = currentNumber
 			numberObj.confirm_number()
