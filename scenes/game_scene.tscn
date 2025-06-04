@@ -1,12 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://d00ety2uy6jm1"]
+[gd_scene load_steps=5 format=3 uid="uid://d00ety2uy6jm1"]
 
 [ext_resource type="PackedScene" uid="uid://5pyec6hb233n" path="res://scenes/work_scene.tscn" id="1_onqr8"]
 [ext_resource type="Script" uid="uid://fgvuhjygjsnk" path="res://scripts/game_scene.gd" id="1_ycayy"]
 [ext_resource type="PackedScene" uid="uid://bgqi8vhiltjvd" path="res://scenes/packet_scene.tscn" id="2_ycayy"]
+[ext_resource type="PackedScene" uid="uid://c1sa4kr1sy2b8" path="res://scenes/mistake.tscn" id="3_bw6k5"]
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("1_ycayy")
 
 [node name="WorkScene" parent="." instance=ExtResource("1_onqr8")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="Mistakes" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 605.0
+offset_top = 83.0
+offset_right = 605.0
+offset_bottom = 83.0
+
+[node name="Mistake" parent="Mistakes" instance=ExtResource("3_bw6k5")]
+layout_mode = 1
+
+[node name="Mistake2" parent="Mistakes" instance=ExtResource("3_bw6k5")]
+layout_mode = 1
+offset_left = -0.999969
+offset_top = 288.0
+offset_right = -0.999969
+offset_bottom = 288.0
+
+[node name="Mistake3" parent="Mistakes" instance=ExtResource("3_bw6k5")]
+layout_mode = 1
+offset_left = -0.999969
+offset_top = 558.0
+offset_right = -0.999969
+offset_bottom = 558.0
 
 [node name="PacketScene" parent="." instance=ExtResource("2_ycayy")]
+offset_left = 711.0
+offset_right = 711.0
+
+[connection signal="mistake_made" from="WorkScene" to="." method="_on_work_scene_mistake_made"]

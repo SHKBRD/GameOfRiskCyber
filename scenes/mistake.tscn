@@ -1,0 +1,107 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1sa4kr1sy2b8"]
+
+[ext_resource type="Script" uid="uid://fgg6xrrt2faj" path="res://scripts/mistake.gd" id="1_phx0m"]
+
+[sub_resource type="Animation" id="Animation_iqt5l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Outline:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Outline:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4m7nw"]
+resource_name = "get_wrong"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Outline:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Outline:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.353553, 1),
+"update": 0,
+"values": [Vector2(0.00999999, 0.00999999), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l3u5j"]
+_data = {
+&"RESET": SubResource("Animation_iqt5l"),
+&"get_wrong": SubResource("Animation_4m7nw")
+}
+
+[node name="Mistake" type="Control"]
+layout_mode = 3
+anchor_left = -0.114
+anchor_top = -0.211
+anchor_right = 0.116
+anchor_bottom = 0.203
+offset_left = 145.92
+offset_top = 151.92
+offset_right = -148.48
+offset_bottom = -146.16
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_phx0m")
+
+[node name="Backing" type="Polygon2D" parent="."]
+rotation = 0.785398
+scale = Vector2(1, 1)
+color = Color(0, 0, 0, 0.498039)
+offset = Vector2(0, -258)
+polygon = PackedVector2Array(50, 100, -50, 100, -50, 200, -150, 200, -150, 300, -50, 300, -50, 400, 50, 400, 50, 300, 150, 300, 150, 200, 50, 200)
+uv = PackedVector2Array(59.3336, -6.66666, -35.9997, -8.66666, -38.6664, 198, -236.666, 193.333, -243.333, 326.667, -33.9997, 338.667, -37.9997, 446.667, 85.3336, 445.333, 87.3336, 343.333, 294.667, 342, 300, 207.333, 89.3336, 206)
+
+[node name="Outline" type="Polygon2D" parent="."]
+visible = false
+rotation = 0.785398
+scale = Vector2(1, 1)
+color = Color(0, 0, 0, 1)
+offset = Vector2(0, -258)
+polygon = PackedVector2Array(50, 100, -50, 100, -50, 200, -150, 200, -150, 300, -50, 300, -50, 400, 50, 400, 50, 300, 150, 300, 150, 200, 50, 200)
+uv = PackedVector2Array(59.3336, -6.66666, -35.9997, -8.66666, -38.6664, 198, -236.666, 193.333, -243.333, 326.667, -33.9997, 338.667, -37.9997, 446.667, 85.3336, 445.333, 87.3336, 343.333, 294.667, 342, 300, 207.333, 89.3336, 206)
+
+[node name="Red" type="Polygon2D" parent="Outline"]
+scale = Vector2(1, 1)
+color = Color(1, 0, 0, 1)
+offset = Vector2(0, -258)
+polygon = PackedVector2Array(40, 110, -40, 110, -40, 210, -140, 210, -140, 290, -40, 290, -40, 390, 40, 390, 40, 290, 140, 290, 140, 210, 40, 210)
+uv = PackedVector2Array(59.3336, -6.66666, -35.9997, -8.66666, -38.6664, 198, -236.666, 193.333, -243.333, 326.667, -33.9997, 338.667, -37.9997, 446.667, 85.3336, 445.333, 87.3336, 343.333, 294.667, 342, 300, 207.333, 89.3336, 206)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l3u5j")
+}

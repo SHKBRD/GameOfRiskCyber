@@ -3,5 +3,6 @@
 [ext_resource type="FontFile" uid="uid://w1uj2x21q4go" path="res://assets/fonts/made_tommy/MADE TOMMY Black_PERSONAL USE.otf" id="1_g8n7o"]
 
 [resource]
+Label/font_sizes/font_size = 25
 Label/fonts/font = ExtResource("1_g8n7o")
 ProgressBar/fonts/font = ExtResource("1_g8n7o")

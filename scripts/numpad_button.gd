@@ -27,11 +27,11 @@ func reset() -> void:
 func _on_area_2d_mouse_entered() -> void:
 	readInput = true
 	mouse_hovered.emit(self)
-	if not get_parent().dragging:
+	if not get_parent().dragging and not get_parent().readyToResetWin:
 		self_modulate = Color(0.5, 0.5, 0.5, 0.5)
 
 func _on_area_2d_mouse_exited() -> void:
 	readInput = false
 	mouse_left.emit(self)
-	if not get_parent().dragging:
+	if not get_parent().dragging and not get_parent().readyToResetWin:
 		self_modulate = Color(1.0, 1.0, 1.0, 1.0)

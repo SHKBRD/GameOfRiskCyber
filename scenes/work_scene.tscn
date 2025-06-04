@@ -4,8 +4,20 @@
 [ext_resource type="Script" uid="uid://c5lnoqof6ijnt" path="res://scripts/number_grid.gd" id="2_x77gp"]
 [ext_resource type="Theme" uid="uid://c382r10cow616" path="res://assets/themes/work.tres" id="3_jqjy7"]
 
-[node name="WorkScene" type="Node2D"]
+[node name="WorkScene" type="Control"]
+layout_mode = 3
+anchor_right = 0.389
+anchor_bottom = 1.0
+offset_right = -497.92
+offset_bottom = -720.0
+mouse_filter = 2
 script = ExtResource("1_fbnfj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 505.0
+offset_bottom = 724.0
+mouse_filter = 2
+color = Color(0.054902, 0.0862745, 0.156863, 1)
 
 [node name="Numpad" type="Node2D" parent="."]
 position = Vector2(0, 96)
@@ -31,10 +43,10 @@ value = 5.0
 
 [node name="ProgressTextContain" type="GridContainer" parent="QuotaProgressBar"]
 layout_mode = 0
-offset_left = 76.0
-offset_top = -21.0
-offset_right = 276.0
-offset_bottom = 19.0
+offset_left = 34.0
+offset_top = -35.0
+offset_right = 336.0
+offset_bottom = 5.0
 columns = 4
 
 [node name="QuotaProgress" type="Label" parent="QuotaProgressBar/ProgressTextContain"]

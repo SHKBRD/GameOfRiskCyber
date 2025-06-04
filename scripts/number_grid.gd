@@ -16,6 +16,7 @@ var currentNumber: int = -1
 var dragging: bool = false
 
 var readyToResetWin: bool = false
+var readyToResetLose: bool = false
 
 func _ready() -> void:
 	init_numbers()
@@ -37,20 +38,26 @@ func update_buttons_to_default() -> void:
 		button.self_modulate = Color.WHITE
 
 func init_win_round() -> void:
-	won_round.emit()
-	readyToResetWin = true
-	
-	var buttonChildren: Array = get_children()
-	for button: NumpadNumber in buttonChildren:
-		button.self_modulate = Color.GREEN
+	if not readyToResetWin:
+		won_round.emit()
+		readyToResetWin = true
+		
+		var buttonChildren: Array = get_children()
+		for button: NumpadNumber in buttonChildren:
+			button.self_modulate = Color.GREEN
+		
+		reset_progress()
 
 func init_lose_round() -> void:
-	lost_round.emit()
-	var buttonChildren: Array = get_children()
-	for button: NumpadNumber in buttonChildren:
-		button.self_modulate = Color.RED
-	
-	reset_progress()
+	if not readyToResetLose:
+		lost_round.emit()
+		readyToResetLose = true
+		
+		var buttonChildren: Array = get_children()
+		for button: NumpadNumber in buttonChildren:
+			button.self_modulate = Color.RED
+		
+		reset_progress()
 
 func update_connect_line() -> void:
 	if connectOrder != 0 and connectLine.points.size() != 0:
@@ -69,9 +76,12 @@ func handle_input():
 		dragging = true
 		update_buttons_to_default()
 		if currentNumber != -1:
-			_on_number_just_hovered(get_number(currentNumber))
-			connectLine.add_point(get_number(1).position)
-			connectLine.add_point(get_number(1).position)
+			if currentNumber == 1:
+				_on_number_just_hovered(get_number(currentNumber))
+				connectLine.add_point(get_number(1).position)
+				connectLine.add_point(get_number(1).position)
+			else:
+				init_lose_round()
 		else:
 			connectOrder = -1
 	if Input.is_action_just_released("NumpadButtonPressed"):
@@ -81,6 +91,7 @@ func handle_input():
 			init_lose_round()
 		else:
 			update_buttons_to_default()
+			readyToResetWin = false
 			
 
 func init_numbers() -> void:
@@ -120,7 +131,7 @@ func _on_number_just_hovered(numberObj: NumpadNumber) -> void:
 				
 			if connectOrder == width*height:
 				init_win_round()
-		elif numberObj.number <= connectOrder:
+		elif numberObj.number <= connectOrder or connectOrder == -1:
 			pass
 		else:
 			init_lose_round()
