@@ -10,9 +10,10 @@ func _process(delta: float) -> void:
 	pass
 
 func send_packet() -> void:
-	var newPacket: PacketScene = packetScene.instantiate()
+	var newPacket: Packet = packetScene.instantiate()
 	$MobArea.add_child(newPacket)
 	
 
 func _on_timer_timeout() -> void:
 	send_packet()
+	$Timer.start()

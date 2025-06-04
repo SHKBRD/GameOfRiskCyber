@@ -8,16 +8,6 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ab6hx")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.5
-autostart = true
-
-[node name="MobArea" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 583.0
-offset_bottom = 729.0
-mouse_filter = 2
-
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 583.0
@@ -33,5 +23,15 @@ offset_right = 512.0
 offset_bottom = 68.0
 theme = ExtResource("1_pj18c")
 text = "All incoming IPs must add up to 160!"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true
+
+[node name="MobArea" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 583.0
+offset_bottom = 729.0
+mouse_filter = 2
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c3uv1xg200vhs"]
 
-[ext_resource type="Script" uid="uid://bv70v4lkgx0mk" path="res://scenes/incoming_packet.gd" id="1_1wox5"]
+[ext_resource type="Script" uid="uid://bv70v4lkgx0mk" path="res://scripts/incoming_packet.gd" id="1_1wox5"]
 
 [node name="Packet" type="Button"]
 offset_top = -169.0
@@ -32,3 +32,9 @@ offset_bottom = 94.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Incoming:"
 horizontal_alignment = 1
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(98, 85.5)
+scale = Vector2(10, 8.65)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
