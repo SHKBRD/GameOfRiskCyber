@@ -44,6 +44,16 @@ theme = ExtResource("3_jqjy7")
 max_value = 5.0
 value = 5.0
 
+[node name="QuotaProgress2" type="Label" parent="QuotaProgressBar"]
+layout_mode = 2
+offset_left = -63.0
+offset_top = 587.0
+offset_right = 432.0
+offset_bottom = 654.0
+text = "Connect the numbers in sequential order
+to work on quota!"
+horizontal_alignment = 1
+
 [node name="ProgressTextContain" type="GridContainer" parent="QuotaProgressBar"]
 layout_mode = 0
 offset_left = 34.0
